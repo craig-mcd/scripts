@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+
+"""
+Coin Toss
+
+Heads or Tails
+"""
+
+from random import randint
+import sys
+
+
+class Coin:
+    """
+    Coin
+
+    Simple representation of a coin in the game
+    """
+
+    def __init__(self, name: str):
+        self.__name: str = name
+        self.__count: int = 0
+
+    def __str__(self):
+        return f"{self.__name}: {self.__count}"
+
+    def increment(self):
+        """Increment the count"""
+        self.__count += 1
+
+    def set_name(self, name: str):
+        """Set name of coin"""
+        self.__name = name
+
+
+def main():
+    """entry point"""
+
+    limit: int = 5
+    heads = Coin("heads")
+    tails = Coin("tails")
+
+    if len(sys.argv) >= 3:
+        # can supply coin names
+        heads.set_name(sys.argv[1])
+        tails.set_name(sys.argv[2])
+
+    if len(sys.argv) == 4:
+        # can provide number of tosses
+
+        if int(sys.argv[3]) < 1:
+            # provide sane default
+            limit = 1
+        else:
+            limit = int(sys.argv[3])
+
+    for _ in range(limit):
+        if randint(0, 1) == 1:
+            heads.increment()
+        else:
+            tails.increment()
+
+    print(f"{heads}, {tails}")
+
+
+if __name__ == "__main__":
+    main()
