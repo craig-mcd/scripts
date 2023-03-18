@@ -17,50 +17,52 @@ class Coin:
     Simple representation of a coin in the game
     """
 
-    def __init__(self, name: str):
-        self.__name: str = name
-        self.__count: int = 0
+    def __init__(self, heads: str = "Heads", tails: str = "Tails"):
+        self.__heads: str = heads
+        self.__tails: str = tails
+        self.__heads_count: int = 0
+        self.__tails_count: int = 0
 
     def __str__(self):
-        return f"{self.__name}: {self.__count}"
+        return f"{self.__heads}: {self.__heads_count}, {self.__tails}: {self.__tails_count}"
 
-    def increment(self):
-        """Increment the count"""
-        self.__count += 1
+    def flip(self, count: int = 1):
+        """Flip the coin x times"""
 
-    def set_name(self, name: str):
+        count = max(count, 1)
+
+        for _ in range(count):
+            if randint(0, 1) == 1:
+                self.__heads_count += 1
+            else:
+                self.__tails_count += 1
+
+    def set_heads(self, heads: str):
         """Set name of coin"""
-        self.__name = name
+        self.__heads = heads
+
+    def set_tails(self, tails: str):
+        """Set name of coin"""
+        self.__tails = tails
 
 
 def main():
     """entry point"""
 
     limit: int = 5
-    heads = Coin("heads")
-    tails = Coin("tails")
+    coin: Coin = Coin()
 
     if len(sys.argv) >= 3:
         # can supply coin names
-        heads.set_name(sys.argv[1])
-        tails.set_name(sys.argv[2])
+        coin.set_heads(sys.argv[1])
+        coin.set_tails(sys.argv[2])
 
     if len(sys.argv) >= 4:
         # can provide number of tosses
+        limit = int(sys.argv[3])
 
-        if int(sys.argv[3]) < 1:
-            # provide sane default
-            limit = 1
-        else:
-            limit = int(sys.argv[3])
-
-    for _ in range(limit):
-        if randint(0, 1) == 1:
-            heads.increment()
-        else:
-            tails.increment()
-
-    print(f"{heads}, {tails}")
+    coin.flip(limit)
+    print(coin)
 
 
 if __name__ == "__main__":
