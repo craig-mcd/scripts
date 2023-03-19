@@ -22,20 +22,24 @@ class Coin:
         self.__tails: str = tails
         self.__heads_count: int = 0
         self.__tails_count: int = 0
+        self.__limit: int = 5
+        self.__runs: int = 1
+        self.__data = []
 
     def __str__(self):
-        return f"{self.__heads}: {self.__heads_count}, {self.__tails}: {self.__tails_count}"
+        return "\n".join(self.__data)
 
-    def flip(self, count: int = 1):
-        """Flip the coin x times"""
+    def flip(self):
+        """Flip the coin x times for y runs"""
 
-        count = max(count, 1)
+        for _ in range(self.__runs):
+            for _ in range(self.__limit):
+                if randint(0, 1) == 1:
+                    self.__heads_count += 1
+                else:
+                    self.__tails_count += 1
 
-        for _ in range(count):
-            if randint(0, 1) == 1:
-                self.__heads_count += 1
-            else:
-                self.__tails_count += 1
+            self.__update()
 
     def set_heads(self, heads: str):
         """Set name of coin"""
@@ -45,11 +49,26 @@ class Coin:
         """Set name of coin"""
         self.__tails = tails
 
+    def set_limit(self, limit: int):
+        """Set the limit of each run"""
+        self.__limit = max(limit, 5)
+
+    def set_runs(self, runs: int):
+        """Set the number of runs"""
+        self.__runs = max(runs, 1)
+
+    def __update(self):
+        """Update after each run"""
+        self.__data.append(
+            f"{self.__heads}: {self.__heads_count}, {self.__tails}: {self.__tails_count}"
+        )
+        self.__heads_count = 0
+        self.__tails_count = 0
+
 
 def main():
     """entry point"""
 
-    limit: int = 5
     coin: Coin = Coin()
 
     if len(sys.argv) >= 3:
@@ -59,9 +78,13 @@ def main():
 
     if len(sys.argv) >= 4:
         # can provide number of tosses
-        limit = int(sys.argv[3])
+        coin.set_limit(int(sys.argv[3]))
 
-    coin.flip(limit)
+    if len(sys.argv) >= 5:
+        # can provide number of runs
+        coin.set_runs(int(sys.argv[4]))
+
+    coin.flip()
     print(coin)
 
 
