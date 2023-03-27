@@ -2,9 +2,12 @@
 
 # Heads or Tails
 class Coin
+  # setters for certain fields
+  attr_reader :heads_name, :tails_name, :limit, :runs
+
   def initialize
-    @heads = 'Heads'
-    @tails = 'Tails'
+    @heads_name = 'Heads'
+    @tails_name = 'Tails'
     @heads_count = 0
     @tails_count = 0
     @limit = 5
@@ -31,13 +34,46 @@ class Coin
     end
   end
 
-  # setters for certain fields
-  attr_writer :heads, :tails, :limit, :runs
+  def heads_name=(name)
+    @heads_name =
+      if name.nil? || name.strip.empty?
+        'Heads'
+      else
+        name
+      end
+  end
+
+  def tails_name=(name)
+    @tails_name =
+      if name.nil? || name.strip.empty?
+        'Heads'
+      else
+        name
+      end
+  end
+
+  def limit=(value)
+    @limit =
+      if value < 1
+        1
+      else
+        value
+      end
+  end
+
+  def runs=(value)
+    @runs =
+      if value < 1
+        1
+      else
+        value
+      end
+  end
 
   private
 
   def update
-    @data.append("#{@heads}: #{@heads_count}, #{@tails}: #{@tails_count}")
+    @data.append("#{@heads_name}: #{@heads_count}, #{@tails_name}: #{@tails_count}")
     @heads_count = 0
     @tails_count = 0
   end
@@ -47,8 +83,8 @@ coin = Coin.new
 
 # can supply coin names
 if ARGV.size >= 2
-  coin.heads = ARGV[0]
-  coin.tails = ARGV[1]
+  coin.heads_name = ARGV[0]
+  coin.tails_name = ARGV[1]
 end
 
 # can supply number of flips
