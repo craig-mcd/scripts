@@ -1,97 +1,93 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env python3
 
-# Heads or Tails
-class Coin
-  # setters for certain fields
-  attr_reader :heads_name, :tails_name, :limit, :runs
+"""
+Coin Toss
 
-  def initialize
-    @heads_name = 'Heads'
-    @tails_name = 'Tails'
-    @heads_count = 0
-    @tails_count = 0
-    @limit = 5
-    @runs = 1
-    @data = []
-  end
+Heads or Tails
+"""
 
-  def to_s
-    @data.join("\n")
-  end
+from random import randint
+import sys
 
-  # Flip the coin x times for y runs
-  def flip
-    (1..@runs).each do
-      (1..@limit).each do
-        if rand(0..1) == 1
-          @heads_count += 1
-        else
-          @tails_count += 1
-        end
-      end
 
-      update
-    end
-  end
+class Coin:
+    """
+    Coin
 
-  def heads_name=(name)
-    @heads_name =
-      if name.nil? || name.strip.empty?
-        'Heads'
-      else
-        name
-      end
-  end
+    Simple representation of a coin in the game
+    """
 
-  def tails_name=(name)
-    @tails_name =
-      if name.nil? || name.strip.empty?
-        'Heads'
-      else
-        name
-      end
-  end
+    def __init__(self, heads: str = "Heads", tails: str = "Tails"):
+        self.__heads: str = heads
+        self.__tails: str = tails
+        self.__heads_count: int = 0
+        self.__tails_count: int = 0
+        self.__limit: int = 5
+        self.__runs: int = 1
+        self.__data = []
 
-  def limit=(value)
-    @limit =
-      if value < 1
-        1
-      else
-        value
-      end
-  end
+    def __str__(self):
+        return "\n".join(self.__data)
 
-  def runs=(value)
-    @runs =
-      if value < 1
-        1
-      else
-        value
-      end
-  end
+    def flip(self):
+        """Flip the coin x times for y runs"""
 
-  private
+        for _ in range(self.__runs):
+            for _ in range(self.__limit):
+                if randint(0, 1) == 1:
+                    self.__heads_count += 1
+                else:
+                    self.__tails_count += 1
 
-  def update
-    @data.append("#{@heads_name}: #{@heads_count}, #{@tails_name}: #{@tails_count}")
-    @heads_count = 0
-    @tails_count = 0
-  end
-end
+            self.__update()
 
-coin = Coin.new
+    def set_heads(self, heads: str):
+        """Set name of coin"""
+        self.__heads = heads
 
-# can supply coin names
-if ARGV.size >= 2
-  coin.heads_name = ARGV[0]
-  coin.tails_name = ARGV[1]
-end
+    def set_tails(self, tails: str):
+        """Set name of coin"""
+        self.__tails = tails
 
-# can supply number of flips
-coin.limit = ARGV[2].to_i if ARGV.size >= 3
+    def set_limit(self, limit: int):
+        """Set the limit of each run"""
+        self.__limit = max(limit, 5)
 
-# can supply number of runs of flips
-coin.runs = ARGV[3].to_i if ARGV.size >= 4
+    def set_runs(self, runs: int):
+        """Set the number of runs"""
+        self.__runs = max(runs, 1)
 
-coin.flip
-puts coin
+    def __update(self):
+        """Update after each run"""
+        self.__data.append(
+            f"{self.__heads}: {self.__heads_count}, {self.__tails}: {self.__tails_count}"
+        )
+        self.__heads_count = 0
+        self.__tails_count = 0
+
+
+def main():
+    """entry point"""
+
+    coin: Coin = Coin()
+
+    if len(sys.argv) >= 3:
+        # can supply coin names
+        coin.set_heads(sys.argv[1])
+        coin.set_tails(sys.argv[2])
+
+    if len(sys.argv) >= 4:
+        # can provide number of tosses
+        coin.set_limit(int(sys.argv[3]))
+
+    if len(sys.argv) >= 5:
+        # can provide number of runs
+        coin.set_runs(int(sys.argv[4]))
+
+    coin.flip()
+    print(coin)
+
+
+if __name__ == "__main__":
+    main()
+
