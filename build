@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+# Super-simple build script for C
+
+INPUT=$1
+OUTPUT=$(echo "$INPUT" | sed 's/.c$//')
+
+if [ ! -f "$INPUT" ]; then
+    echo "File does not exist"
+    exit
+fi
+
+gcc -Wall -Wextra -Wpedantic --std=c11 $INPUT -o $OUTPUT
+
