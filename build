@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # Super-simple build script for C
 
-if [ -z "$1"]; then
+if [ -z "$1" ]; then
     echo -e "\033[1mUsage:\033[0m build filename.c"
     exit 1
 fi
