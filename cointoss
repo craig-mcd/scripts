@@ -17,13 +17,13 @@ class Coin:
     Simple representation of a coin in the game
     """
 
-    def __init__(self, heads: str = "Heads", tails: str = "Tails"):
-        self.__heads: str = heads
-        self.__tails: str = tails
-        self.__heads_count: int = 0
-        self.__tails_count: int = 0
-        self.__limit: int = 5
-        self.__runs: int = 1
+    def __init__(self, heads = "Heads", tails = "Tails"):
+        self.__heads = heads
+        self.__tails = tails
+        self.__heads_count = 0
+        self.__tails_count = 0
+        self.__limit = 5
+        self.__runs = 1
         self.__data = []
 
     def __str__(self):
@@ -41,19 +41,19 @@ class Coin:
 
             self.__update()
 
-    def set_heads(self, heads: str):
+    def set_heads(self, heads):
         """Set name of coin"""
         self.__heads = heads
 
-    def set_tails(self, tails: str):
+    def set_tails(self, tails):
         """Set name of coin"""
         self.__tails = tails
 
-    def set_limit(self, limit: int):
+    def set_limit(self, limit):
         """Set the limit of each run"""
         self.__limit = max(limit, 5)
 
-    def set_runs(self, runs: int):
+    def set_runs(self, runs):
         """Set the number of runs"""
         self.__runs = max(runs, 1)
 
