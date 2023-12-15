@@ -1,18 +1,23 @@
 #!/usr/bin/bash
 # Super-simple build script for C
 
-if [ -z "$1" ]; then
-    echo -e "\033[1mUsage:\033[0m build filename.c"
+if [ -z "$1" ]
+then
+    echo -e "\033[1mUsage:\033[0m build filename1.c filename2.c ..."
+    echo "First filename becomes excutable name."
     exit 1
 fi
 
-INPUT=$1
-OUTPUT=$(echo "$INPUT" | sed 's/.c$//')
+for FILE in $@
+do
+    if [ ! -f "$FILE" ]
+    then
+        echo "File '$FILE' does not exist."
+        exit
+    fi
+done
 
-if [ ! -f "$INPUT" ]; then
-    echo "File does not exist"
-    exit
-fi
+OUTPUT=$(echo "$1" | sed 's/.c$//')
 
-gcc -Wall -Wextra -Wpedantic --std=c11 $INPUT -o $OUTPUT
+gcc -Wall -Wextra -Wpedantic --std=c11 $@ -o $OUTPUT
 
