@@ -19,5 +19,5 @@ done
 
 OUTPUT=$(echo "$1" | sed 's/.c$//')
 
-gcc -Wall -Wextra -Wpedantic --std=c11 $@ -o $OUTPUT
+gcc -Wall -Wextra -Wpedantic -Werror --std=c17 -g3 $@ -o $OUTPUT
 
