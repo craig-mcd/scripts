@@ -17,7 +17,12 @@ do
     fi
 done
 
+if [[ ! -v C_STD ]]
+then
+    C_STD="c17"
+fi
+
 OUTPUT=$(echo "$1" | sed 's/.c$//')
 
-gcc -Wall -Wextra -Wpedantic -Werror --std=gnu11 -g3 $@ -o $OUTPUT
+gcc -Wall -Wextra -Wpedantic -Werror --std=$C_STD -g3 $@ -o $OUTPUT
 
