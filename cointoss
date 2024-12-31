@@ -17,7 +17,7 @@ class Coin:
     Simple representation of a coin in the game
     """
 
-    def __init__(self, heads = "Heads", tails = "Tails"):
+    def __init__(self, heads="Heads", tails="Tails"):
         self.__heads = heads
         self.__tails = tails
         self.__heads_count = 0
@@ -90,4 +90,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
