@@ -19,7 +19,7 @@ done
 
 if [[ ! -v C_STD ]]
 then
-    C_STD="c17"
+    C_STD="c23"
 fi
 
 OUTPUT=$(echo "$1" | sed 's/.c$//')
