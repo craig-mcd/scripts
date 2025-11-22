@@ -3,7 +3,7 @@
 
 if [ -z "$1" ]
 then
-    echo -e "\033[1mUsage:\033[0m build filename1.c filename2.c ..."
+    echo -e "\033[1mUsage:\033[0m cbuild filename1.c filename2.c ..."
     echo "First filename becomes excutable name."
     exit 1
 fi
