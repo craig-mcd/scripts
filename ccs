@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+# C Check Syntax
+
+if [ -z "$1" ]
+then
+    echo -e "\033[1mUsage:\033[0m ccs filename1.c filename2.c ..."
+    exit 1
+fi
+
+for FILE in $@
+do
+    if [ ! -f "$FILE" ]
+    then
+        echo "File '$FILE' does not exist."
+        exit 2
+    fi
+done
+
+if [[ ! -v C_STD ]]
+then
+    C_STD="c23"
+fi
+
+gcc --std=$C_STD -fsyntax-only $@
+
